@@ -1,5 +1,4 @@
 const jwt = require("jsonwebtoken");
-const db = require("../config/database");
 require("dotenv").config();
 
 const authMiddleware = (req, res, next) => {
@@ -14,11 +13,11 @@ const authMiddleware = (req, res, next) => {
     jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
         if (err) {
             console.error("JWT Verification Error:", err.message);
-            return res.status(403).json({ error: "Invalid token" });
+            return res.status(401).json({ error: "Invalid or expired token" });
         }
 
         req.user = decoded;
-        console.log(`JWT Validated: User ${req.user.id}`);
+        console.log(`✅ JWT Validated: User ${req.user.id}`);
         next();
     });
 };
