@@ -49,59 +49,59 @@ const Register = () => {
   };
 
   return (
-    <div className="register-container">
-      <div className="register-box">
-        <h2>Register</h2>
+      <div className="register-container">
+        <div className="register-box">
+          <h2>Register</h2>
 
-        {/* Role Selection */}
-        <div className="role-selection">
-          <button className={role === "user" ? "active" : ""} onClick={() => handleRoleChange("user")}>
-            User
-          </button>
-          <button className={role === "admin" ? "active" : ""} onClick={() => handleRoleChange("admin")}>
-            Admin
-          </button>
-        </div>
+          {/* Role Selection */}
+          <div className="role-selection">
+            <button className={role === "user" ? "active" : ""} onClick={() => handleRoleChange("user")}>
+              User
+            </button>
+            <button className={role === "admin" ? "active" : ""} onClick={() => handleRoleChange("admin")}>
+              Admin
+            </button>
+          </div>
 
-        {/* Registration Form */}
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            name="username"
-            placeholder="Enter username"
-            value={formData.username}
-            onChange={handleChange}
-            required
-          />
-
-          <input
-            type="password"
-            name="password"
-            placeholder="Enter password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-          />
-
-          {/* Show Admin Secret Field Only for Admins */}
-          {role === "admin" && (
+          {/* Registration Form */}
+          <form onSubmit={handleSubmit}>
             <input
-              type="text"
-              name="adminSecret"
-              placeholder="Enter secret key (if required)"
-              value={formData.adminSecret}
-              onChange={handleChange}
+                type="text"
+                name="username"
+                placeholder="Enter username"
+                value={formData.username}
+                onChange={handleChange}
+                required
             />
-          )}
 
-          <button type="submit">Register</button>
+            <input
+                type="password"
+                name="password"
+                placeholder="Enter password"
+                value={formData.password}
+                onChange={handleChange}
+                required
+            />
 
-          <p>
-            Already have an account? <Link id="lo-link" to="/login">Login</Link>
-          </p>
-        </form>
+            {/* Show Admin Secret Field Only for Admins */}
+            {role === "admin" && (
+                <input
+                    type="text"
+                    name="adminSecret"
+                    placeholder="Enter secret key"
+                    value={formData.adminSecret}
+                    onChange={handleChange}
+                />
+            )}
+
+            <button type="submit">Register</button>
+
+            <p id="register-p">
+              Already have an account? <Link id="lo-link" to="/login">Login</Link>
+            </p>
+          </form>
+        </div>
       </div>
-    </div>
   );
 };
 

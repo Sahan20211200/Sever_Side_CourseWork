@@ -98,8 +98,8 @@ const UserDashboard = () => {
   return (
     <div className="dashboard-container">
       {/* Admin Dashboard Header */}
-      <header className="admin-header">
-        <h2>User Dashboard</h2>
+      <header className="user-header">
+        <h2>USER DASHBOARD</h2>
         <button className="u-logout-btn" onClick={() => navigate("/login")}>Logout</button>
       </header>
 
@@ -113,7 +113,7 @@ const UserDashboard = () => {
 
           {/* API Keys Table */}
           <div className="u-api-key-table">
-            <h4>🔑 Your API Keys</h4>
+            <h4>CREATED API KEYS</h4>
             {apiKeys.length > 0 ? (
               <table>
                 <thead>
@@ -128,7 +128,7 @@ const UserDashboard = () => {
                   {apiKeys.map((key, index) => (
                     <tr key={index}>
                       <td>
-                        <button 
+                        <button id="api-select-btn"
                           className={`api-select-button ${selectedApiKey === key.api_key ? "selected" : ""}`}
                           onClick={() => setSelectedApiKey(key.api_key)}
                         >
@@ -136,16 +136,16 @@ const UserDashboard = () => {
                         </button>
                       </td>
                       <td>{`************${key.api_key.slice(-4)}`}</td>
-                      <td>{new Date(key.created_date).toLocaleString()}</td>
+                      <td>{new Date(key.created_at).toLocaleString()}</td>
                       <td>
-                        <button onClick={() => deleteApiKey(key.api_key)}>Delete</button>
+                        <button className="api-delete-btn" onClick={() => deleteApiKey(key.api_key)}>Delete</button>
                       </td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             ) : (
-              <p>No API Keys Available</p>
+              <p></p>
             )}
           </div>
 

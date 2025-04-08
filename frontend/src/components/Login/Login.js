@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom"; 
+import { Link, useNavigate } from "react-router-dom";
 import "../Login/Login.css";
 
 const Login = () => {
@@ -41,41 +41,41 @@ const Login = () => {
   };
 
   return (
-    <div className="login-container">
-      <div className="login-box">
-        <h2>Login</h2>
+      <div className="login-container">
+        <div className="login-box">
+          <h2>Login</h2>
 
-        {/* Error Message */}
-        {error && <p className="error-message">{error}</p>}
+          {/* Error Message */}
+          {error && <p className="error-message">{error}</p>}
 
-        {/* Login Form */}
-        <form onSubmit={handleSubmit}>
-          <input 
-            type="text" 
-            name="username" 
-            placeholder="Enter username" 
-            value={formData.username} 
-            onChange={handleChange} 
-            required 
-          />
-          <input 
-            type="password" 
-            name="password" 
-            placeholder="Enter password" 
-            value={formData.password} 
-            onChange={handleChange} 
-            required 
-          />
+          {/* Login Form */}
+          <form onSubmit={handleSubmit}>
+            <input
+                type="text"
+                name="username"
+                placeholder="Enter username"
+                value={formData.username}
+                onChange={handleChange}
+                required
+            />
+            <input
+                type="password"
+                name="password"
+                placeholder="Enter password"
+                value={formData.password}
+                onChange={handleChange}
+                required
+            />
 
-          <button type="submit">Login</button>
+            <button type="submit">Login</button>
 
-          <p>
-            Need to create an account? <Link id='re-link' to="/register">Register</Link>
-          </p>
-    
-        </form>
+            <p id='login-p'>
+              Need to create an account? <Link id='re-link' to="/register">Register</Link>
+            </p>
+
+          </form>
+        </div>
       </div>
-    </div>
   );
 };
 

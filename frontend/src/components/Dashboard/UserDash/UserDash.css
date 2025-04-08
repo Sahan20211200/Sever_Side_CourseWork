@@ -7,23 +7,25 @@
   padding: 20px;
   height: 100vh;
   max-height: 100vh;
-  background: url('../../../assets/e2.jpg') no-repeat center center/cover;
+  background: url('../../../assets/bg5.jpeg') no-repeat center center/cover;
+  /* background-color: white; */
   font-family: 'Lexend', sans-serif;
 }
 .user-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-left: 1%;
   margin-bottom: 10px;
-  padding: 15px;
-  background: rgba(19, 101, 214, 0.7);
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.7);
   border-radius: 10px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.u-header h2 {
+.user-header h2 {
   margin: 0;
-  margin-left: 30px;
+  margin-left: 5%;
 }
 
 .sub-dash{
@@ -43,13 +45,12 @@
 }
 
 #head1{
-  background: rgba(19, 101, 214, 0.7);
-  margin-left: 70px;
-  margin-right: 70px;
+  background: rgba(255, 255, 255, 0.5);
   margin-top: 15px;
   border-radius: 10px;
-  color: white;
+  color: rgb(0, 0, 0);
   font-weight: bolder;
+  margin-left: 5%;
 }
 
 #head1 h2 {
@@ -60,7 +61,7 @@
   display: flex;
   gap: 50px;
   margin: 10px 0;
-  margin-left: 80px;
+  margin-left: 5%;
 }
 
 .search-section input {
@@ -70,12 +71,16 @@
   font-size: 17px;
   border: none;
   font-weight: bold;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.7);
   color: white;
 }
 
+.search-section input::placeholder{
+  color: rgb(202, 195, 195);
+}
+
 .country-card {
-  background: rgba(19, 101, 214, 0.7);
+  background: rgba(0, 0, 0, 0.7);
   margin-left: 80px;
   margin-right: 80px;
   margin-top: 10px;
@@ -103,15 +108,13 @@
 }
 
 #u-fetch-button{
-  background-color: rgb(255, 255, 255);
+  background-color: rgb(0, 0, 0);
   font-weight: bold;
-  color: rgb(0, 0, 0);
-  padding: 8px;
+  color: rgb(255, 255, 255);
+  padding: 20px;
   border: none;
-  width: 150px;
   cursor: pointer;
   border-radius: 10px;
-  margin-right: 80px;
 }
 
 #u-fetch-button:hover{
@@ -137,9 +140,9 @@
 }
 
 .u-left-panel {
-  width: 40%;
+  width: 50%;
   padding: 20px;
-  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
   gap: 10px
@@ -148,9 +151,8 @@
 .u-user-profile {
   text-align: center;
   padding: 20px 0;
-  height: 30%;
+  height: 25%;
   font-size: 17px;
-  background: rgba(19, 101, 214, 0.7);
   color: white;
   border-radius: 10px;
 }
@@ -172,26 +174,29 @@
 .u-api-key-table {
   padding: 20px;
   height: 100%;
-  color: white;
-  background: rgba(19, 101, 214, 0.7);
+  color: rgb(0, 0, 0);
   border-radius: 10px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.5);
+  overflow-y: auto;
 }
 
 .u-api-key-table table {
   width: 100%;
+  height: 150px;
   border-collapse: separate;
   border-spacing: 0 10px;
 }
 
 .u-api-key-table th, .api-key-table td {
   padding: 10px;
-  text-align: left;
+  text-align: center;
   border-bottom: 1px solid #fffbfb;
   table-layout:inherit;
 }
 
 .u-api-key-table th {
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(255, 255, 255, 0.5);
   font-size: 15px;
 }
 
@@ -212,12 +217,23 @@
   border: none;
   cursor: pointer;
   border-radius: 5px;
-  background-color: #ff2a00;
-  color: white;
   font-weight: bold;
 }
+.api-delete-btn{
+  background-color: #ff0000;
+  color: white;
+}
 
-.api-select-button:hover {
+.api-delete-btn:hover{
+  background-color: white;
+  color: #000000;
+}
+
+#api-select-btn{
+ background-color: #000000;
+}
+
+#api-select-btn:hover  {
   background: #ffffff;
   color: black;
 
@@ -228,21 +244,20 @@
 }
 
 .api-select-button {
-  background-color: red;
+  background-color: rgb(255, 8, 0);
   color: white;
   border: none;
 }
 
 .api-select-button.selected {
-  background-color: yellow !important;
-  color: black;
+  background-color: rgb(0, 0, 0) !important;
+  color: rgb(125, 230, 5);
   font-weight: bold;
 }
 
 .api-key-generate-section {
   padding: 20px;
   height: 45%;
-  background: rgba(19, 101, 214, 0.7);
   border-radius: 10px;
   background-size: cover;
   text-align: center;
@@ -252,7 +267,7 @@
 }
 
 .generate-btn {
-  background: #ff2a00;
+  background: #000000;
   color: white;
   padding: 12px;
   width: 100%;
@@ -264,7 +279,7 @@
 }
 
 .generate-btn:hover{
-  background: #ff4444;
+  background: #ff0000;
 }
 
 

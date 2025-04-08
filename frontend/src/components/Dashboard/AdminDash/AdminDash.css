@@ -4,10 +4,10 @@
   display: flex;
   flex-direction: column;
   color: #ffffff;
-  height: 100vh;
-  max-height: 120vh;
+  height:100vh;
+  min-height: auto;
   padding: 20px;
-  background: url('../../../assets/e2.jpg') no-repeat center center/cover;
+  background: url('../../../assets/bg5.jpeg') no-repeat center center/cover;
   font-family: 'Lexend', sans-serif;
 }
 
@@ -17,7 +17,7 @@
   align-items: center;
   margin-bottom: 20px;
   padding: 15px;
-  background: rgba(19, 101, 214, 0.7);
+  background: rgba(0, 0, 0, 0.7);
   border-radius: 10px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
@@ -51,8 +51,8 @@
 
 .tile {
   color: #ffffff;
-  background: rgba(233, 6, 6, 0.7);
-  padding: 20px;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 10px;
   border-radius: 10px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
@@ -82,10 +82,11 @@
 }
 
 .left-panel {
-  height:430px;
-  max-height:600px;
-  background: rgba(19, 101, 214, 0.7);
+  width: 45%;
+  height: 460px;
+  background: rgba(255, 255, 255, 0.5);
   padding: 20px;
+  color: black;
   border-radius: 10px;
   box-shadow: 0px 4px 8px rgba(172, 172, 172, 0.1);
   overflow-y: auto;
@@ -95,6 +96,7 @@
 .left-panel h4 {
   margin-bottom: 0px;
   font-size: 18px;
+  margin-bottom: 20px;
 }
 
 .a-user-table {
@@ -102,18 +104,23 @@
   height: 50%;
   border-collapse: collapse;
   font-family: 'Lexend', sans-serif;
+  text-align: center;
 }
 
 .a-user-table th,
 .a-user-table td {
   padding: 12px;
   border-bottom: 1px solid #ffffff;
-  text-align: left;
+  text-align: center;
   margin-left: 10px;
 }
 
+.a-user-table th{
+  background: rgba(255, 255, 255, 0.5);
+}
+
 .a-user-table tbody tr:hover {
-  background: rgba(41, 154, 230, 0.7);
+  background: rgba(0, 0, 0, 0.3);
 }
 
 .a-user-profile {
@@ -143,16 +150,19 @@
 
 .api-alerts,
 .api-owners {
-  background: rgba(19, 101, 214, 0.7);
+  background: rgba(255, 255, 255, 0.5);
+  color: black;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  height: 200px;
 }
 
 .api-alerts h4,
 .api-owners h4 {
   text-align: center;
-  color: #ffffff;
+  color: black;
   font-size: 20px;
   margin-bottom: 10px;
 }
@@ -161,8 +171,8 @@
 .api-owners table {
   width: 100%;
   border-collapse: collapse;
-  background: rgba(3, 37, 2, 0.7);
   border-radius: 10px;
+  text-align: center;
 }
 
 .api-alerts th,
@@ -171,19 +181,26 @@
 .api-owners td {
   padding: 10px;
   border-bottom: 1px solid #ddd;
-  text-align: left;
 }
+
+.api-alerts th,
+.api-owners th{
+  background: rgba(255, 255, 255, 0.5);
+  font-size: 15px;
+  color: black;
+}
+
 
 .api-alerts tbody tr:hover,
 .api-owners tbody tr:hover {
-  background: rgba(41, 154, 230, 0.7);
+  background: rgba(0, 0, 0, 0.3);
 }
 
 button.revoke-btn {
   background: red;
   color: white;
   border: none;
-  padding: 6px 12px;
+  padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
   font-size: 12px;

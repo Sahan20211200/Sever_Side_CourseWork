@@ -86,21 +86,21 @@ const AdminDashboard = () => {
     <div className="admin-dashboard">
       {/* Header Section */}
       <header className="admin-header">
-        <h2>Admin Dashboard</h2>
+        <h2>ADMIN DASHBOARD</h2>
         <button className="logout-btn" onClick={() => navigate("/login")}>Logout</button>
       </header>
 
       {/* Tiles Section */}
       <div className="tiles-container">
-        <div className="tile"><span>{users.length}</span>Total Users</div>
-        <div className="tile"><span>{unusedApiKeys.length}</span>API Keys Not Used</div>
-        <div className="tile"><span>{apiKeyOwners.length}</span>Risky API Owners</div>
+        <div className="tile"><span>{users.length}</span>TOTAL USERS</div>
+        <div className="tile"><span>{unusedApiKeys.length}</span>API KEYS NOT USED</div>
+        <div className="tile"><span>{apiKeyOwners.length}</span>RISKY API OWNERS</div>
       </div>
 
       <div className="dashboard-content">
         {/* Left Panel - User List */}
         <div className="left-panel">
-          <h4>All Users</h4>
+          <h4>ALL USERS</h4>
           <table className="a-user-table">
             <thead>
               <tr><th>User</th><th>Last Logged In</th><th>API Keys</th></tr>
@@ -125,7 +125,7 @@ const AdminDashboard = () => {
         {/* Right Panel - Risky API Alerts */}
         <div className="right-panel">
           <div className="api-alerts">
-            <h4> Risky API Keys</h4>
+            <h4> RISKY API KEYS</h4>
             {unusedApiKeys.length > 0 ? (
               <table>
                 <thead>
@@ -137,7 +137,7 @@ const AdminDashboard = () => {
                       <td>************{key.api_key.slice(-4)}</td>
                       <td>{key.created_date}</td>
                       <td>{key.last_used_date || "Never Used"}</td>
-                      <td><button className="revoke-btn" onClick={() => revokeApiKey(key.user_id)}>🚫 Revoke</button></td>
+                      <td><button className="revoke-btn" onClick={() => revokeApiKey(key.user_id)}>Revoke</button></td>
                     </tr>
                   ))}
                 </tbody>
@@ -146,7 +146,7 @@ const AdminDashboard = () => {
           </div>
 
           <div className="api-owners">
-            <h4>Risky API Owners</h4>
+            <h4>RISKY API OWNERS</h4>
             {apiKeyOwners.length > 0 ? (
               <table>
                 <thead>
