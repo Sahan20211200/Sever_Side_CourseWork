@@ -1,85 +1,95 @@
-@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@400;700&display=swap');
-
-
-/* Background with Transparency */
 .register-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background: url('../../assets/e2.jpg') no-repeat center center/cover;
-    backdrop-filter: blur(5px);
-    color: white;
-    font-weight: bolder;
-    font-size: 17px;
-    font-family: 'Lexend', sans-serif;
-  }
+  height: 100vh;
+  background: url('../../assets/e5.jpg') no-repeat center center/cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Lexend', sans-serif;
+  padding: 20px;
+}
 
+.register-box {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  padding: 40px 30px;
+  border-radius: 20px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+  color: white;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
 
-  
-  /* Registration Box */
-  .register-box {
-    background: rgba(19, 101, 214, 0.7);
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-    width: 350px;
-    text-align: center;
-  }
-  
-  /* Role Selection Buttons */
-  .role-selection {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
-    
-  }
-  
-  .role-selection button {
-    padding: 10px 20px;
-    margin: 5px;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    font-weight: bold;
-    background: rgba(255, 255, 255, 0.5);
-    transition: 0.3s;
-  }
-  
-  .role-selection button.active {
-    background: rgb(57, 56, 56);
-    color: white;
-  }
-  
-  /* Form Fields */
-  form input {
-    width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    margin-bottom: 15px;
-    border-radius: 5px;
-    border: none;
-  }
-  
-  form button {
-    width: 100%;
-    padding: 10px;
-    background: rgb(0, 0, 0);
-    color: rgb(255, 255, 255);
-    font-weight: bold;
-    font-size: 17px;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: 0.3s;
-  }
+/* Form Inputs */
+.register-box input {
+  width: 100%;
+  padding: 12px 15px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 10px;
+  outline: none;
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+  font-size: 16px;
+}
 
-  #lo-link{
-    /* text-decoration: none; */
-    color: rgb(255, 255, 255);
-  }
-  
-  form button:hover {
-    background: rgb(227, 0, 0);
-    color: rgb(255, 255, 255);
-  }
+.register-box input::placeholder {
+  color: #e0e0e0;
+}
+
+/* Role Buttons */
+.role-selection {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.role-btn {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.role-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.role-btn.active {
+  background-color: #003b6f;
+  font-weight: bold;
+}
+
+/* Register Button */
+.register-btn {
+  background-color: #003b6f;
+  color: white;
+  padding: 12px;
+  width: 100%;
+  border: none;
+  border-radius: 10px;
+  margin-top: 15px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.register-btn:hover {
+  background-color: #002b55;
+}
+
+/* Footer Text */
+.bottom-text {
+  font-size: 14px;
+  margin-top: 20px;
+}
+
+.bottom-text a {
+  color: #ffffff;
+  font-weight: bold;
+  text-decoration: underline;
+}

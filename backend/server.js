@@ -1,17 +1,26 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
-const db = require("./src/config/database"); 
+const db = require("./src/config/database");
+const logRequest = require("./src/middleware/logRequest");
+const rateLimiter = require("./src/middleware/rateLimiter");
+const cookieParser = require("cookie-parser");
 
 dotenv.config();
 const app = express();
 app.use(express.json());
-app.use(cors()); // Enable CORS
+app.use(cors({
+    origin: "http://localhost:3002",
+    credentials: true
+}));
+app.use(cookieParser());
+app.use(logRequest); // log file save log request
+app.use(rateLimiter);
 
 // Routes
-app.use("/auth", require("./src/routes/authRoutes"));
-app.use("/countries", require("./src/routes/countryRoutes"));
-app.use("/admin", require("./src/routes/adminRoutes"));
+app.use("/api/auth", require("./src/routes/authRoutes"));
+app.use("/api/countries", require("./src/routes/countryRoutes"));
+app.use("/api/admin", require("./src/routes/adminRoutes"));
 
 // Handle undefined routes
 app.use((req, res) => {

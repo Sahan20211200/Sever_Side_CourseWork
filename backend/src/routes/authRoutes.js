@@ -1,5 +1,5 @@
 const express = require("express");
-const { register, login, generateApiKey, getApiKeys, deleteApiKey } = require("../controllers/authController");
+const { register, login, generateApiKey, getApiKeys, deleteApiKey, refreshToken} = require("../controllers/authController");
 const { authMiddleware } = require("../middleware/authMiddleware");
 // const { validateApiKey } = require("../middleware/apiKeyMiddleware");
 
@@ -14,5 +14,6 @@ router.post("/login", login);
 router.post("/generate-api-key", authMiddleware, generateApiKey);
 router.get("/get-api-keys", authMiddleware, getApiKeys);
 router.delete("/delete-api-key/:apiKey", authMiddleware, deleteApiKey);
+router.post("/refresh-token", refreshToken);
 
 module.exports = router;

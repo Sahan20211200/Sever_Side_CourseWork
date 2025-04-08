@@ -18,16 +18,9 @@ const UserDashboard = () => {
 
   // Fetch user's available API keys
   const fetchApiKeys = async () => {
-    const token = localStorage.getItem("token");
-
-    if (!token) {
-      console.error("No token found, user might be logged out.");
-      return;
-    }
-
     try {
-      const response = await axios.get("http://localhost:3000/auth/get-api-keys", {
-        headers: { Authorization: `Bearer ${token}` },
+      const response = await axios.get("http://localhost:3000/api/auth/get-api-keys", {
+        withCredentials: true
       });
 
       if (response.data.apiKeys.length > 0) {
@@ -47,12 +40,11 @@ const UserDashboard = () => {
 
     setLoading(true);
     try {
-      const token = localStorage.getItem("token");
-      const response = await axios.get(`http://localhost:3000/countries/${country}`, {
-        headers: { 
-          Authorization: `Bearer ${token}`, 
+      const response = await axios.get(`http://localhost:3000/api/countries/${country}`, {
+        headers: {
           "x-api-key": selectedApiKey 
         },
+        withCredentials: true
       });
 
       setCountryData(response.data);
@@ -66,9 +58,9 @@ const UserDashboard = () => {
   const generateApiKey = async () => {
     setLoading(true);
     try {
-      const token = localStorage.getItem("token");
-      const response = await axios.post("http://localhost:3000/auth/generate-api-key", {}, {
-        headers: { Authorization: `Bearer ${token}` },
+
+      const response = await axios.post("http://localhost:3000/api/auth/generate-api-key", {}, {
+        withCredentials: true
       });
 
       if (response.data.apiKey) {
@@ -84,9 +76,9 @@ const UserDashboard = () => {
   // Delete API key
   const deleteApiKey = async (apikey) => {
     try {
-      const token = localStorage.getItem("token");
-      await axios.delete(`http://localhost:3000/auth/delete-api-key/${apikey}`, {
-        headers: { Authorization: `Bearer ${token}` },
+
+      await axios.delete(`http://localhost:3000/api/auth/delete-api-key/${apikey}`, {
+        withCredentials: true
       });
       setApiKeys(apiKeys.filter((key) => key.api_key !== apikey));
       alert("API Key deleted successfully!");
@@ -136,7 +128,7 @@ const UserDashboard = () => {
                         </button>
                       </td>
                       <td>{`************${key.api_key.slice(-4)}`}</td>
-                      <td>{new Date(key.created_at).toLocaleString()}</td>
+                      <td>{new Date(key.created_date).toLocaleString()}</td>
                       <td>
                         <button className="api-delete-btn" onClick={() => deleteApiKey(key.api_key)}>Delete</button>
                       </td>

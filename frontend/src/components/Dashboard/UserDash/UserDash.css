@@ -1,16 +1,29 @@
 @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@400;700&display=swap');
 
 .dashboard-container {
+  position: relative;
   display: flex;
   flex-direction: column;
   color: white;
   padding: 20px;
   height: 100vh;
   max-height: 100vh;
-  background: url('../../../assets/bg5.jpeg') no-repeat center center/cover;
-  /* background-color: white; */
+  background: url('../../../assets/e4.jpg') no-repeat center center/cover;
   font-family: 'Lexend', sans-serif;
+  z-index: 0; /* Important to make room for the overlay */
 }
+
+.dashboard-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* Change 0.4 to desired darkness */
+  z-index: -1; /* Send overlay behind content */
+}
+
 .user-header {
   display: flex;
   justify-content: space-between;

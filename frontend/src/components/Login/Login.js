@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import "../Login/Login.css";
+import logo from "../../assets/logo.png";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -19,41 +20,49 @@ const Login = () => {
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(""); // Clear previous errors
+    setError("");
 
     try {
-      const response = await axios.post("http://localhost:3000/auth/login", formData);
-      const { token, username, role } = response.data;
+      const response = await axios.post(
+          "http://localhost:3000/api/auth/login",
+          formData,
+          { withCredentials: true }
+      );
+      const { username, role } = response.data;
 
-      // Store token and username in localStorage
-      localStorage.setItem("token", token);
       localStorage.setItem("username", username);
+      const newExp = Math.floor(Date.now() / 1000) + 3600; // 1 hour expiry
+      localStorage.setItem("exp", newExp.toString());
 
-      // Redirect to the correct dashboard and pass username
+      console.log("Login Success:", username, role);
+
       if (role === "admin") {
         navigate("/admin-dashboard", { state: { username } });
       } else {
         navigate("/user-dashboard", { state: { username } });
       }
+
     } catch (error) {
-      setError(error.response?.data?.error || "Login failed. Please check credentials.");
+      alert(error.response?.data?.error || "Login failed. Please check credentials.");
     }
   };
 
   return (
       <div className="login-container">
         <div className="login-box">
-          <h2>Login</h2>
+          <h2>
+            <img src={logo} alt="logo" style={{ height: '40px' }} />
+            <br />
+            Login
+          </h2>
 
-          {/* Error Message */}
           {error && <p className="error-message">{error}</p>}
 
-          {/* Login Form */}
           <form onSubmit={handleSubmit}>
             <input
                 type="text"
                 name="username"
-                placeholder="Enter username"
+                placeholder="Email"
                 value={formData.username}
                 onChange={handleChange}
                 required
@@ -61,22 +70,22 @@ const Login = () => {
             <input
                 type="password"
                 name="password"
-                placeholder="Enter password"
+                placeholder="Password"
                 value={formData.password}
                 onChange={handleChange}
                 required
             />
 
-            <button type="submit">Login</button>
+            <button type="submit" className="login-btn">Sign in</button>
 
-            <p id='login-p'>
-              Need to create an account? <Link id='re-link' to="/register">Register</Link>
+            <p className="bottom-text">
+              Don’t have an account? <Link to="/register">Register</Link> free
             </p>
-
           </form>
         </div>
       </div>
   );
+
 };
 
 export default Login;

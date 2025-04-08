@@ -2,6 +2,8 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const db = require("../config/database");
 const crypto = require("crypto");
+const {createApiKey, getApiKeysByUser, deleteApiKey} = require("../models/apiKeyModel");
+const {createUser, findUserByUsername, updateLastLoggedDate} = require("../models/userModel");
 require("dotenv").config();
 
 const register = (req, res) => {
@@ -45,10 +47,16 @@ const login = (req, res) => {
             if (!isMatch) return res.status(401).json({ error: "Invalid username or password" });
 
             const token = jwt.sign({ id: user.id, role: user.role, username: user.username }, process.env.JWT_SECRET, { expiresIn: "1h" });
-
             updateLastLoggedDate(user.id);
+            res
+                .cookie("token", token, {
+                    httpOnly: true,
+                    secure: true,
+                    sameSite: "Strict",
+                    maxAge: 60 * 60 * 1000
+                })
+                .json({ token, username: user.username, role: user.role });
 
-            res.json({ token, username: user.username, role: user.role });
         });
     });
 };
@@ -91,11 +99,36 @@ const removeApiKey = (req, res) => {
     });
 };
 
+const refreshToken = (req, res) => {
+    const token = req.cookies?.token;
+    if (!token) return res.status(401).json({ error: "Unauthorized" });
+
+    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+        if (err) return res.status(403).json({ error: "Invalid token" });
+
+        const newToken = jwt.sign(
+            { id: decoded.id, role: decoded.role, username: decoded.username },
+            process.env.JWT_SECRET,
+            { expiresIn: "1h" }
+        );
+
+        res
+            .cookie("token", newToken, {
+                httpOnly: true,
+                secure: true,
+                sameSite: "Strict",
+                maxAge: 60 * 60 * 1000
+            })
+            .json({ message: "Token refreshed" });
+    });
+};
+
 module.exports = {
     register,
     login,
     generateApiKey,
     getApiKeys,
-    deleteApiKey: removeApiKey
+    deleteApiKey: removeApiKey,
+    refreshToken
 };
 

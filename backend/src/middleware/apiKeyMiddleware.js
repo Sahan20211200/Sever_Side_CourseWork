@@ -26,7 +26,7 @@ const validateApiKey = (req, res, next) => {
             }
 
             req.user = { id: row.user_id, role: row.role };
-            console.log(`✅ API Key Validated: User ${req.user.id}`);
+            console.log(`API Key Validated: User ${req.user.id}`);
             next();
         });
     });

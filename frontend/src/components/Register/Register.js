@@ -40,7 +40,7 @@ const Register = () => {
     }
 
     try {
-      const response = await axios.post("http://localhost:3000/auth/register", requestData);
+      const response = await axios.post("http://localhost:3000/api/auth/register", requestData);
       alert(response.data.message);
       navigate("/login"); // Redirect to login page after successful registration
     } catch (error) {
@@ -55,10 +55,16 @@ const Register = () => {
 
           {/* Role Selection */}
           <div className="role-selection">
-            <button className={role === "user" ? "active" : ""} onClick={() => handleRoleChange("user")}>
+            <button
+                className={role === "user" ? "role-btn active" : "role-btn"}
+                onClick={() => handleRoleChange("user")}
+            >
               User
             </button>
-            <button className={role === "admin" ? "active" : ""} onClick={() => handleRoleChange("admin")}>
+            <button
+                className={role === "admin" ? "role-btn active" : "role-btn"}
+                onClick={() => handleRoleChange("admin")}
+            >
               Admin
             </button>
           </div>
@@ -83,7 +89,7 @@ const Register = () => {
                 required
             />
 
-            {/* Show Admin Secret Field Only for Admins */}
+            {/* Admin Secret Field */}
             {role === "admin" && (
                 <input
                     type="text"
@@ -91,13 +97,14 @@ const Register = () => {
                     placeholder="Enter secret key"
                     value={formData.adminSecret}
                     onChange={handleChange}
+                    required
                 />
             )}
 
-            <button type="submit">Register</button>
+            <button type="submit" className="register-btn">Register</button>
 
-            <p id="register-p">
-              Already have an account? <Link id="lo-link" to="/login">Login</Link>
+            <p className="bottom-text">
+              Already have an account? <Link to="/login">Login</Link>
             </p>
           </form>
         </div>

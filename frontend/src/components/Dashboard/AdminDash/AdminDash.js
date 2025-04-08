@@ -17,11 +17,9 @@ const AdminDashboard = () => {
 
   const fetchUsers = async () => {
     try {
-      const token = localStorage.getItem("token");
-      const response = await axios.get("http://localhost:3000/admin/users", {
-        headers: { Authorization: `Bearer ${token}` },
+      const response = await axios.get("http://localhost:3000/api/admin/users", {
+        withCredentials: true
       });
-
       const filteredUsers = response.data.filter(user => user.username !== adminUsername);
       setUsers(filteredUsers);
     } catch (error) {
@@ -31,14 +29,13 @@ const AdminDashboard = () => {
 
   const fetchUnusedApiKeys = async () => {
     try {
-      const token = localStorage.getItem("token");
-      const response = await axios.get("http://localhost:3000/admin/unused-api-keys", {
-        headers: { Authorization: `Bearer ${token}` },
+      const response = await axios.get("http://localhost:3000/api/admin/unused-api-keys", {
+        withCredentials: true
       });
 
       setUnusedApiKeys(response.data);
       if (response.data.length > 0) {
-        fetchApiKeyOwners(response.data);
+        await fetchApiKeyOwners(response.data);
       }
     } catch (error) {
       console.error("Error fetching unused API keys:", error);
@@ -48,10 +45,9 @@ const AdminDashboard = () => {
   const fetchApiKeyOwners = async (unusedKeys) => {
     if (unusedKeys.length === 0) return;
     try {
-      const token = localStorage.getItem("token");
-      const response = await axios.post("http://localhost:3000/admin/api-key-owners", 
-        { apiKeys: unusedKeys.map(key => key.api_key) }, 
-        { headers: { Authorization: `Bearer ${token}` } }
+      const response = await axios.post("http://localhost:3000/api/admin/api-key-owners",
+        { apiKeys: unusedKeys.map(key => key.api_key) },
+          { withCredentials: true }
       );
       setApiKeyOwners(response.data);
     } catch (error) {
@@ -62,9 +58,8 @@ const AdminDashboard = () => {
   const revokeApiKey = async (userid) => {
     if (!window.confirm("Are you sure you want to revoke this API key?")) return;
     try {
-        const token = localStorage.getItem("token");
-        await axios.delete(`http://localhost:3000/admin/api-key/${userid}`, {
-            headers: { Authorization: `Bearer ${token}` },
+        await axios.delete(`http://localhost:3000/api/admin/api-key/${userid}`, {
+          withCredentials: true
         });
 
         alert("API Key Revoked!");

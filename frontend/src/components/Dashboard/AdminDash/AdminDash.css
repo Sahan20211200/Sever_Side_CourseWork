@@ -1,15 +1,40 @@
 @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@400;700&display=swap');
 
 .admin-dashboard {
+  position: relative;
   display: flex;
   flex-direction: column;
   color: #ffffff;
-  height:100vh;
-  min-height: auto;
+  height: 100vh;
   padding: 20px;
-  background: url('../../../assets/bg5.jpeg') no-repeat center center/cover;
+  background: url('../../../assets/e6.jpg') no-repeat center center/cover;
   font-family: 'Lexend', sans-serif;
+  overflow: hidden;
+
 }
+
+/* Add a dark overlay */
+.admin-dashboard::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Initially transparent */
+  transition: background-color 0.3s ease;
+  z-index: 0;
+}
+
+.admin-dashboard:hover::before {
+  background-color: rgba(0, 0, 0, 0.6); /* 20% black overlay on hover */
+}
+
+/* Ensure content appears above the overlay */
+.admin-dashboard > * {
+  position: relative;
+  z-index: 1;
+}
+
 
 .admin-header {
   display: flex;
