@@ -5,3 +5,4 @@ backend/node_modules/yallist/package.json
 .idea/modules.xml
 .idea/Sever_Side_CourseWork.iml
 .idea/vcs.xml
+backend/logs/api_requests.log
