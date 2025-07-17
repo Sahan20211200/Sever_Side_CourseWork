@@ -15,7 +15,7 @@ const authMiddleware = (req, res, next) => {
         }
 
         req.user = decoded;
-        console.log(`✅ JWT Validated: User ${req.user.id}`);
+        console.log(`JWT Validated: User ${req.user.id}`);
         next();
     });
 };

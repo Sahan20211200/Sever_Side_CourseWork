@@ -24,15 +24,16 @@ const revokeApiKey = (req, res) => {
         return res.status(403).json({ error: "Access denied" });
     }
 
-    const { userId } = req.params;
+    const { userId, apiKey } = req.params;
 
-    deleteApiKeyAndUsageByUserId(userId, (err) => {
+    deleteApiKeyAndUsageByUserId(userId, apiKey, (err) => {
         if (err) {
             return res.status(500).json({ error: "Failed to revoke API key or usage" });
         }
         res.json({ message: "API key revoked and usage history deleted" });
     });
 };
+
 
 const fetchUnusedApiKeys = (req, res) => {
     const twoDaysAgo = new Date();
@@ -49,13 +50,13 @@ const fetchUnusedApiKeys = (req, res) => {
 };
 
 const fetchApiKeyOwners = (req, res) => {
-    const { apiKeys } = req.body;
+    const apiKeyIds = req.body.apiKeys;
 
-    if (!apiKeys || apiKeys.length === 0) {
+    if (!apiKeyIds || apiKeyIds.length === 0) {
         return res.status(400).json({ error: "No API keys provided" });
     }
 
-    getApiKeyOwners(apiKeys, (err, rows) => {
+    getApiKeyOwners(apiKeyIds, (err, rows) => {
         if (err) {
             console.error("Database error:", err);
             return res.status(500).json({ error: "Database error" });
@@ -63,6 +64,7 @@ const fetchApiKeyOwners = (req, res) => {
         res.json(rows);
     });
 };
+
 
 module.exports = {
     getUsers,

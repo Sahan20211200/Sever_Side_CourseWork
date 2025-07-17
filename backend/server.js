@@ -14,7 +14,7 @@ app.use(cors({
     credentials: true
 }));
 app.use(cookieParser());
-app.use(logRequest); // log file save log request
+app.use(logRequest);
 app.use(rateLimiter);
 
 // Routes

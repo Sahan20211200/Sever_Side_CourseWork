@@ -25,10 +25,10 @@ const logApiUsage = (userId, endpoint) => {
             [userId, endpoint, new Date().toISOString()],
             (err) => {
                 if (err) {
-                    console.error("❌ Failed to log API usage:", err.message);
+                    console.error("Failed to log API usage:", err.message);
                     reject(err);
                 } else {
-                    console.log(`📥 Logged API usage: User ${userId} → ${endpoint}`);
+                    console.log(`Logged API usage: User ${userId} → ${endpoint}`);
                     resolve();
                 }
             }

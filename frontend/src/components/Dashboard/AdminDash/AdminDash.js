@@ -1,7 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "../../Dashboard/AdminDash/AdminDash.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 const AdminDashboard = () => {
   const [users, setUsers] = useState([]);
@@ -15,39 +18,40 @@ const AdminDashboard = () => {
     fetchUnusedApiKeys();
   }, []);
 
-  const fetchUsers = async () => {
+  const fetchUsers = useCallback(async () => {
     try {
       const response = await axios.get("http://localhost:3000/api/admin/users", {
         withCredentials: true
       });
+  
       const filteredUsers = response.data.filter(user => user.username !== adminUsername);
       setUsers(filteredUsers);
     } catch (error) {
       console.error("Error fetching users:", error);
     }
-  };
+  }, [adminUsername]);
 
-  const fetchUnusedApiKeys = async () => {
+  const fetchUnusedApiKeys = useCallback(async () => {
     try {
       const response = await axios.get("http://localhost:3000/api/admin/unused-api-keys", {
         withCredentials: true
       });
-
+  
       setUnusedApiKeys(response.data);
       if (response.data.length > 0) {
-        await fetchApiKeyOwners(response.data);
+        fetchApiKeyOwners(response.data);
       }
     } catch (error) {
       console.error("Error fetching unused API keys:", error);
     }
-  };
+  }, []);
 
   const fetchApiKeyOwners = async (unusedKeys) => {
     if (unusedKeys.length === 0) return;
     try {
       const response = await axios.post("http://localhost:3000/api/admin/api-key-owners",
-        { apiKeys: unusedKeys.map(key => key.api_key) },
-          { withCredentials: true }
+        { apiKeys: unusedKeys.map(key => key.id) }, 
+        { withCredentials: true }
       );
       setApiKeyOwners(response.data);
     } catch (error) {
@@ -55,17 +59,16 @@ const AdminDashboard = () => {
     }
   };
 
-  const revokeApiKey = async (userid) => {
+  const revokeApiKey = async (userid, apiKey) => {
     if (!window.confirm("Are you sure you want to revoke this API key?")) return;
     try {
-        await axios.delete(`http://localhost:3000/api/admin/api-key/${userid}`, {
+        await axios.delete(`http://localhost:3000/api/admin/api-key/${userid}/${apiKey}`, {
           withCredentials: true
         });
-
-        alert("API Key Revoked!");
-
-        // Remove the revoked key from state
-        setUnusedApiKeys((prevKeys) => prevKeys.filter(key => key.user_id !== userid));
+        toast.success("API Key Revoked!");
+        setUnusedApiKeys((prevKeys) =>
+            prevKeys.filter((key) => !(key.user_id === userid && key.api_key === apiKey))
+        );
 
     } catch (error) {
         console.error("Error revoking API key:", error);
@@ -132,7 +135,7 @@ const AdminDashboard = () => {
                       <td>************{key.api_key.slice(-4)}</td>
                       <td>{key.created_date}</td>
                       <td>{key.last_used_date || "Never Used"}</td>
-                      <td><button className="revoke-btn" onClick={() => revokeApiKey(key.user_id)}>Revoke</button></td>
+                      <td><button className="revoke-btn" onClick={() => revokeApiKey(key.user_id, key.api_key)}>Revoke</button></td>
                     </tr>
                   ))}
                 </tbody>
@@ -145,14 +148,13 @@ const AdminDashboard = () => {
             {apiKeyOwners.length > 0 ? (
               <table>
                 <thead>
-                  <tr><th>Username</th><th>Risky APIs</th><th>Search Count</th></tr>
+                  <tr><th>Username</th><th>Risky API Count</th></tr>
                 </thead>
                 <tbody>
                   {apiKeyOwners.map((owner, index) => (
                     <tr key={index}>
                       <td>{owner.username}</td>
                       <td>{owner.risky_api_count}</td>
-                      <td>{owner.search_count}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -160,6 +162,7 @@ const AdminDashboard = () => {
             ) : <p>No Risky API Owners.</p>}
           </div>
         </div>
+        <ToastContainer position="top-center" autoClose={3000} />
       </div>
     </div>
   );

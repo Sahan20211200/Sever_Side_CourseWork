@@ -5,7 +5,6 @@ const db = new sqlite3.Database("../database.sqlite", sqlite3.OPEN_READWRITE | s
     } else {
         console.log("Connected to SQLite database");
 
-        // Ensure tables are created
         db.serialize(() => {
             db.run(`
                 CREATE TABLE IF NOT EXISTS users (

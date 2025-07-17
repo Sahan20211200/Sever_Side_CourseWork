@@ -35,7 +35,7 @@ router.get("/unused-api-keys", authMiddleware, adminMiddleware, getUnusedApiKeys
 router.post("/api-key-owners", authMiddleware, adminMiddleware, getApiKeyOwners);
 
 router.delete(
-    "/api-key/:userId",
+    "/api-key/:userId/:apiKey",
     authMiddleware,
     adminMiddleware,
     logActionMiddleware("Revoke API Key"),

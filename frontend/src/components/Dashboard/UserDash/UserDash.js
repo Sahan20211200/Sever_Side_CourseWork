@@ -2,6 +2,9 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "../UserDash/UserDash.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 const UserDashboard = () => {
   const [apiKeys, setApiKeys] = useState([]);
@@ -10,6 +13,8 @@ const UserDashboard = () => {
   const [countryData, setCountryData] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const [message, setMessage] = useState("");
+
   const username = localStorage.getItem("username") || "User";
 
   useEffect(() => {
@@ -35,9 +40,17 @@ const UserDashboard = () => {
 
   // Fetch Country Data
   const fetchCountryData = async () => {
-    if (!selectedApiKey) return alert("Please select an API key first!");
-    if (!country) return alert("Enter a country name!");
+    if (!selectedApiKey) {
+      toast.error("Please select an API key first.");
+      return;
+    }
+    if (!country) {
+      toast.warning("Enter a country name.");
+      return;
+    }
 
+
+    setMessage("");
     setLoading(true);
     try {
       const response = await axios.get(`http://localhost:3000/api/countries/${country}`, {
@@ -161,7 +174,7 @@ const UserDashboard = () => {
               value={country} 
               onChange={(e) => setCountry(e.target.value)} 
             />
-            <button id="u-fetch-button" onClick={fetchCountryData} disabled={loading || !selectedApiKey}>
+            <button id="u-fetch-button" onClick={fetchCountryData}>
               {loading ? "Searching..." : "Fetch Country Info"}
             </button>
           </div>
